@@ -29,7 +29,7 @@ function bombGen(num_of_bombs){
     let bombs = [ ];
 
     // Creo il ciclo che generi le bombe
-    for(i = 1; i<num_of_bombs; i++){
+    for(i = 1; i < num_of_bombs; i++){
 
         bombs.push(rngUnique(bombs));
     }
@@ -77,8 +77,8 @@ function generateGrid(){
     // Creo la variabile del messaggio di vittoria o sconfitta della parita
     let result = document.getElementById('result');
     
-        for(let i = 1; i< 100; i++){
-
+        for(let i = 1; i <= 100; i++){
+ 
             // Richiamo la funzione con la variabile square
             let square = createSquare(i);
         
@@ -102,6 +102,7 @@ function generateGrid(){
 
                         // Fornisco il messagio di partita persa indicandolo nel dom
                         result.innerText = 'BOOM! Hai preso una mina! Premi su Play per avviare una nuova parita!';
+
                     }
                 }
 
@@ -111,7 +112,9 @@ function generateGrid(){
             griglia.appendChild(square);
         }    
 
-    
+    // Eseguo il reset delle scritte in caso di nuova partita
+    document.getElementById('punteggio').innerText = ' ';
+    result.innerText = ' ';
 }
 
 // RECUPERO IL CONTENITORE DEI QUADRATI/GRIGLIA
