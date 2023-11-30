@@ -21,10 +21,15 @@
     background-color: #fff;
 }
 
+.bomb{
+    background-color: red;
+}
+
 #griglia{
     width: 1000px;
 }
  
+
 
 
 .bg-green{

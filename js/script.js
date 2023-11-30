@@ -51,14 +51,6 @@ function createSquare(num){
     // Aggiungo il numero dentro il quadrato 
     square.innerText = num;
 
-    // BONUS AL CLICK CAMBIA COLORE
-    square.addEventListener('click', function(){
-        this.classList.toggle('clicked')
-
-        // Mostro a video quale cella sia stata cliccata
-        console.log(`Numero della cella: ${this.innerText}`)
-    })
-
     // Faccio tornare il risultato
     return square;
 }
@@ -71,17 +63,32 @@ function generateGrid(){
 
     griglia.innerHTML = "";
 
-    for(let i = 0; i< 100; i++){
+
+    const bombs = bombGen(num_of_bombs);
+    console.log(bombs)
+
+    for(let i = 0; i < 100; i++){
 
         // Richiamo la funzione con la variabile square
         let square = createSquare(i+1);
     
+        // Aggiungo le condizioni di gioco
+        square.addEventListener('click', function(){
+
+            if(!bombs.includes(i)){
+                this.classList.add('clicked')
+            }
+            else{
+                this.classList.add('bomb')
+            }
+
+        })
+
         // Appendo i quadrati alla griglia
         griglia.appendChild(square);
     }    
 
-    const bombs = bombGen(num_of_bombs);
-    console.log(bombs)
+    
 }
 
 // RECUPERO IL CONTENITORE DEI QUADRATI/GRIGLIA
