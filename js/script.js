@@ -1,5 +1,5 @@
-// CREO LA FUNZIONE CHE GENERI 16 NUMERI CASUALI NON UGUALI TRA LORO
-function rngUnique(bombs_array){
+// DEFINISCO LA FUNZIONE CHE GENERI 16 NUMERI CASUALI NON UGUALI TRA LORO
+function rngUnique(bombs_array, squareNum){
 
     // Creo la flag
     let check_num = false;
@@ -9,7 +9,7 @@ function rngUnique(bombs_array){
     while(!check_num){
 
         // Genero i numeri randomici
-        random_num = Math.floor(Math.random() * 100 + 1);
+        random_num = Math.floor(Math.random() * squareNum + 1);
 
         // Definisco la condizione della verifica, 
         // in questo caso = Se l'array non ha nessun elemento uguale al numero randomico allora = true
@@ -22,8 +22,8 @@ function rngUnique(bombs_array){
 
 }
 
-// CREO LA FUNZIONE CHE GENERI LE BOMBE
-function bombGen(num_of_bombs){
+// DEFINISCO LA FUNZIONE CHE GENERI LE BOMBE
+function bombGen(num_of_bombs, squareNum){
 
     // Definisco l'array dove andranno inserite le bombe
     let bombs = [ ];
@@ -31,22 +31,26 @@ function bombGen(num_of_bombs){
     // Creo il ciclo che generi le bombe
     for(i = 1; i < num_of_bombs; i++){
 
-        bombs.push(rngUnique(bombs));
+        bombs.push(rngUnique(bombs, squareNum));
     }
 
     return bombs;
 
 }
 
-
-// CREO LA FUNZIONE CHE FACCIA IL SINGOLO QUADRATO DELLA GRIGLIA
-function createSquare(num){
+// DEFINISCO LA FUNZIONE CHE FACCIA IL SINGOLO QUADRATO DELLA GRIGLIA
+function createSquare(num, squarePerRow){
 
     // Creo il quadrato
     const square = document.createElement('div');
 
     // Aggiungo la classe di presonalizzazione
     square.classList.add('square');
+
+    // Modifico la grandezza dei quadrati usando i calcoli precedentementi fatti nella funzione 'generateGridContent'
+    square.style.width = `calc(100% / ${squarePerRow})`;
+    square.style.height = square.style.width;
+
 
     // Aggiungo il numero dentro il quadrato 
     square.innerText = num;
@@ -55,32 +59,62 @@ function createSquare(num){
     return square;
 }
 
-// CREO LA FUNZIONE CHE ESEGUA UN CICLO E CHE MOLTIPLICHI LA QUANTITà 
-// DI QUADRATI CHE VOGLIO AVERE NELLA GRIGLIA
-function generateGrid(){
+// DEFINISCO LA FUNZIONE CHE GENERI LA GRIGLIA IN BASE ALLA DIFFICOLTà
+function generateGridContent(){
 
-    
+    // Creo lo switch per i livelli di difficolta della griglia
+    const difficulty = document.getElementById('difficulty');
+
+    // Creo la variabile per indicare la difficoltà del livello
+    const livello = parseInt(difficulty.value);
+
+    // Constante delle bombe
     const num_of_bombs = 16;
-
-    griglia.innerHTML = "";
     
-    const bombs = bombGen(num_of_bombs);
-    console.log(bombs);
-
     // Bonus = il gioco si interrompe quando si trova una bomba
     // Creo la flag
     let gameOver = false;
-
+    
     // Creo la variabile del punteggio
     let points = 0;
-
+    
     // Creo la variabile del messaggio di vittoria o sconfitta della parita
     let result = document.getElementById('result');
     
-        for(let i = 1; i <= 100; i++){
+
+    // Creo le due variabili per i quadrati la 1' per quelli totali e la 2' per quelli per riga
+    let squareNum;
+    let squarePerRow;
+ 
+    switch(livello){
+         case 1:
+            squareNum = 100;
+            break;
+         case 2:
+            squareNum = 81;
+            break;
+         case 3:
+            squareNum = 49;
+            break;
+         default:
+            alert('Seleziona una difficoltà!')
+            break;
+    }
+
+    // Effettuo il calcolo della radice quadrati di 'squareNum' per avere il numero delle righe
+    squarePerRow = Math.sqrt(squareNum);
+
+    // Richiamo la funzione delle bombe
+    const bombs = bombGen(num_of_bombs, squareNum);
+    console.log(bombs);
+
+    // Reset della griglia
+    griglia.innerHTML = "";
+
+        for(let i = 1; i <=squareNum; i++){
  
             // Richiamo la funzione con la variabile square
-            let square = createSquare(i);
+            let square = createSquare(i, squarePerRow);
         
             // Aggiungo le condizioni di gioco
             square.addEventListener('click', function(){           
@@ -115,7 +149,9 @@ function generateGrid(){
     // Eseguo il reset delle scritte in caso di nuova partita
     document.getElementById('punteggio').innerText = ' ';
     result.innerText = ' ';
+
 }
+
 
 // RECUPERO IL CONTENITORE DEI QUADRATI/GRIGLIA
 const griglia = document.getElementById('griglia');
@@ -125,6 +161,5 @@ let playButton = document.getElementById('play');
 
 // AGGIUNGO AL BOTTONE LA FUNZIONE PRECEDENTEMENTE CREATA
 playButton.addEventListener('click', function(){
-
-    generateGrid();
+    generateGridContent();
 })

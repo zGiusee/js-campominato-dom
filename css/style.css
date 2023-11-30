@@ -7,8 +7,7 @@
 
 /* CREO LA CLASSE SQUARE */
 .square{
-    width: 100px;
-    height: 100px;
+
     background-color: #7FFFD4;
     border: 1px solid black;
     display: flex;
@@ -27,6 +26,7 @@
 
 #griglia{
     width: 1000px;
+    height: 1000px;
 }
  
 
