@@ -1,0 +1,32 @@
+
+ *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+ }
+
+/* CREO LA CLASSE SQUARE */
+.square{
+    width: 100px;
+    height: 100px;
+    background-color: #7FFFD4;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.clicked{
+    background-color: #fff;
+}
+
+#griglia{
+    width: 1000px;
+}
+ 
+
+
+.bg-green{
+    background-color: #7FFFD4;
+}
