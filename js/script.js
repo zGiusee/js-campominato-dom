@@ -59,33 +59,59 @@ function createSquare(num){
 // DI QUADRATI CHE VOGLIO AVERE NELLA GRIGLIA
 function generateGrid(){
 
+    
     const num_of_bombs = 16;
 
     griglia.innerHTML = "";
-
-    for(let i = 1; i< 100; i++){
-
-        // Richiamo la funzione con la variabile square
-        let square = createSquare(i);
     
-        // Aggiungo le condizioni di gioco
-        square.addEventListener('click', function(){
-
-            if(!bombs.includes(i)){
-                this.classList.add('clicked')
-            }
-            else{
-                this.classList.add('bomb')
-            }
-
-        })
-
-        // Appendo i quadrati alla griglia
-        griglia.appendChild(square);
-    }    
-
     const bombs = bombGen(num_of_bombs);
-    console.log(bombs)
+    console.log(bombs);
+
+    // Bonus = il gioco si interrompe quando si trova una bomba
+    // Creo la flag
+    let gameOver = false;
+
+    // Creo la variabile del punteggio
+    let points = 0;
+
+    // Creo la variabile del messaggio di vittoria o sconfitta della parita
+    let result = document.getElementById('result');
+    
+        for(let i = 1; i< 100; i++){
+
+            // Richiamo la funzione con la variabile square
+            let square = createSquare(i);
+        
+            // Aggiungo le condizioni di gioco
+            square.addEventListener('click', function(){           
+
+                if(!gameOver){
+                    if(!bombs.includes(i)){
+                        this.classList.add('clicked')
+        
+                        // Incremento della variabile del punteggio
+                        points++;
+
+                        // Indico dove far visualizzare il punteggio
+                        document.getElementById('punteggio').innerText = `Il tuo punteggio è di : ${points}`;
+                    }
+                    else{
+                        this.classList.add('bomb')
+                        // Attivo la variabile flag precedentemente dichiarata
+                        gameOver = true;
+
+                        // Fornisco il messagio di partita persa indicandolo nel dom
+                        result.innerText = 'BOOM! Hai preso una mina! Premi su Play per avviare una nuova parita!';
+                    }
+                }
+
+            })
+
+            // Appendo i quadrati alla griglia
+            griglia.appendChild(square);
+        }    
+
+    
 }
 
 // RECUPERO IL CONTENITORE DEI QUADRATI/GRIGLIA
