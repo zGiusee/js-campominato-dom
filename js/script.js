@@ -29,7 +29,7 @@ function bombGen(num_of_bombs){
     let bombs = [ ];
 
     // Creo il ciclo che generi le bombe
-    for(i = 0; i<num_of_bombs; i++){
+    for(i = 1; i<num_of_bombs; i++){
 
         bombs.push(rngUnique(bombs));
     }
@@ -63,14 +63,10 @@ function generateGrid(){
 
     griglia.innerHTML = "";
 
-
-    const bombs = bombGen(num_of_bombs);
-    console.log(bombs)
-
-    for(let i = 0; i < 100; i++){
+    for(let i = 1; i< 100; i++){
 
         // Richiamo la funzione con la variabile square
-        let square = createSquare(i+1);
+        let square = createSquare(i);
     
         // Aggiungo le condizioni di gioco
         square.addEventListener('click', function(){
@@ -88,7 +84,8 @@ function generateGrid(){
         griglia.appendChild(square);
     }    
 
-    
+    const bombs = bombGen(num_of_bombs);
+    console.log(bombs)
 }
 
 // RECUPERO IL CONTENITORE DEI QUADRATI/GRIGLIA
