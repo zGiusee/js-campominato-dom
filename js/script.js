@@ -48,7 +48,7 @@ function createSquare(num, squarePerRow){
     square.classList.add('square');
 
     // Modifico la grandezza dei quadrati usando i calcoli precedentementi fatti nella funzione 'generateGridContent'
-    square.style.width = `calc(100% / ${squarePerRow})`;
+    square.style.width = `calc(100% / ${squarePerRow} - 8px)`;
     square.style.height = square.style.width;
 
 

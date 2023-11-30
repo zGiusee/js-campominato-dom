@@ -7,21 +7,23 @@
 
 /* CREO LA CLASSE SQUARE */
 .square{
-
-    background-color: #7FFFD4;
-    border: 1px solid black;
+    background-image: url(../img/sand.jpg);
+    background-size: cover;
+    border: 2px solid #4d2d06;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 2px;
 
 }
 
 .clicked{
-    background-color: #fff;
+    background-image: url(../img/sand-shells.jpg);
+    background-size: cover;
 }
 
 .bomb{
-    background-color: red;
+    background-image: url(../img/fire.jpg);
 }
 
 #griglia{
@@ -30,8 +32,11 @@
 }
  
 
-
-
-.bg-green{
-    background-color: #7FFFD4;
+.bg-light-brown{
+    background-color: #E6B16F;
 }
+
+.bg-dark-brown{
+    background-color: #382104;
+}
+
