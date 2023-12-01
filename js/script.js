@@ -51,7 +51,6 @@ function createSquare(num, squarePerRow){
     square.style.width = `calc(100% / ${squarePerRow} - 8px)`;
     square.style.height = square.style.width;
 
-
     // Aggiungo il numero dentro il quadrato 
     square.innerText = num;
 
@@ -97,8 +96,9 @@ function generateGridContent(){
             squareNum = 49;
             break;
          default:
-            alert('Seleziona una difficoltà!')
-            break;
+            alert('seleziona isadoin')
+            return;
+            
     }
 
     // Effettuo il calcolo della radice quadrati di 'squareNum' per avere il numero delle righe
@@ -121,23 +121,44 @@ function generateGridContent(){
 
                 if(!gameOver){
                     if(!bombs.includes(i)){
-                        this.classList.add('clicked')
-        
-                        // Incremento della variabile del punteggio
-                        points++;
+                        
+                        // Condizione per un solo click per quadrato
+                        if(!this.classList.contains('clicked')){
 
-                        // Indico dove far visualizzare il punteggio
-                        document.getElementById('punteggio').innerText = `Il tuo punteggio è di : ${points}`;
+                            this.classList.add('clicked');
+
+                            points++;
+                            
+                            // Indico dove far visualizzare il punteggio
+                            document.getElementById('punteggio').innerText = `Il tuo punteggio è di : ${points}`;
+                        }
+
                     }
                     else{
+
+                        // Recupero i quadrati
+                        const square = document.querySelectorAll('.square');
+
+                        // Ciclo i quadrati
+                        for(let i = 0; i < square.length; i++){
+
+                            // Creo la condizione di ricerca dei quadrati con l'array delle bombe
+                            if(bombs.includes(parseInt(square[i].innerText))){
+
+                                square[i].classList.add('bomb');
+                            }
+
+                        }                        
+
                         this.classList.add('bomb')
+
                         // Attivo la variabile flag precedentemente dichiarata
                         gameOver = true;
-
+                        
                         // Fornisco il messagio di partita persa indicandolo nel dom
                         result.innerText = 'BOOM! Hai preso una mina! Premi su Play per avviare una nuova parita!';
-
                     }
+
                 }
 
             })
